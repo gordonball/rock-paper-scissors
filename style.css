@@ -1,0 +1,19 @@
+nav {
+	display: flex;
+	border: 1px solid red;
+	width: 100%;
+	justify-content: center;
+}
+
+h2 {
+
+}
+
+button {
+	height: 30px;
+	width: 100px;
+}
+
+h3 {
+
+}
