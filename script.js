@@ -2,6 +2,12 @@
 
 const ROCK_PAPER_SCISSORS = ['ROCK', 'PAPER', 'SCISSORS'];
 
+const resultArea = document.getElementById("result-area")
+const playerChoiceArea = document.getElementById("player-selection");
+const computerChoiceArea = document.getElementById("computer-selection");
+const roundResult = document.getElementById("round-result")
+
+
 function computerPlay() {
 	let hand = Math.floor(Math.random() * 3)
 	return ROCK_PAPER_SCISSORS[hand];
@@ -44,31 +50,54 @@ function playRound(playerSelection, computerSelection) {
 		let result = "You win...Scissors beats Paper.";
 		console.log(result);
 	}
+
 	let round = `${result} The score is ${playerScore} to ${computerScore}`;
-	console.log(round);
-	return round
-}
 
-
-
-function game() {
-	let computerSelection = computerPlay();
-	let playerSelection =
-	playRound(playerSelection, computerSelection);
-	if (playerScore === 5) {
-		return "You win!"
-	} else if (computerScore === 5) {
-		return "You lose..."
+	let winner = checkWinner(playerScore, computerScore)
+	if (winner) {
+		roundResult.innerText = winner;
+		return winner
 	}
+
+	playerChoiceArea.innerText = `Player: ${playerSelection}`;
+	computerChoiceArea.innerText = `Computer: ${computerSelection}`;
+	roundResult.innerText = round;
+
+	return round;
 }
 
-// const choices = document.getElementById("choices")
-// for (let elem of choices) {
+const rock = document.getElementById("rock");
+rock.addEventListener("click", (evt) => {
+	playRound(evt.target.value, computerPlay());
+});
 
-	let rock = document.getElementById("rock");
-	rock.addEventListener("click", (evt) => playRound(evt.target.value, computerPlay()));
-	let paper = document.getElementById("paper");
-	paper.addEventListener("click", (evt) => playRound(evt.target.value, computerPlay()));
-	let scissors = document.getElementById("scissors");
-	scissors.addEventListener("click", (evt) => playRound(evt.target.value, computerPlay()));
+const paper = document.getElementById("paper");
+paper.addEventListener("click", (evt) => {
+	playRound(evt.target.value, computerPlay());
+});
+
+const scissors = document.getElementById("scissors");
+scissors.addEventListener("click", (evt) => {
+	playRound(evt.target.value, computerPlay());
+});
+
+
+
+
+// function game() {
+// 	let computerSelection = computerPlay();
+// 	let playerSelection =
+// 	playRound(playerSelection, computerSelection);
+
+// }
+
+
+function checkWinner(playerScore, computerScore) {
+	if (playerScore === 5) {
+		return `The score is  ${playerScore} to ${computerScore} - You win!`;
+	} else if (computerScore === 5) {
+		return `The score is  ${playerScore} to ${computerScore} - You lose...`;
+	}
+	return false
+}
 
